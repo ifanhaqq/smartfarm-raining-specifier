@@ -1,0 +1,2 @@
+ALTER TABLE "SensorLogs"
+ALTER COLUMN timestamp TYPE VARCHAR(25);

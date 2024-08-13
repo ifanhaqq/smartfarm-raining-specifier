@@ -1,0 +1,29 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Post {
+  id        Int      @id @default(autoincrement())
+  title     String   @db.VarChar(255)
+  createdAt DateTime @default(now()) @db.Timestamp(6)
+  content   String?
+  published Boolean  @default(false)
+}
+
+model SensorLogs {
+  id          Int      @id @default(autoincrement())
+  cloud       Float    @default(0)
+  thermostat  Float    @default(0)
+  eye         Float    @default(0)
+  pressure    Float    @default(0)
+  wind        Float    @default(0)
+  noise       Float    @default(0)
+  temperature Float    @default(0)
+  timestamp   String?
+  createdAt   DateTime @default(now()) @db.Timestamp(6)
+}
