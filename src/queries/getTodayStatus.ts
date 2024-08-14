@@ -10,11 +10,3 @@ export default async function getTodayStatus(date: any) {
 
     return query;
 }
-
-// export default async function getTodayStatus() {
-//     const query = await prisma.$queryRaw`
-//         SELECT * FROM "SensorLogs" WHERE "timestamp" LIKE '15%'
-//     `
-
-//     console.log(query)
-// }

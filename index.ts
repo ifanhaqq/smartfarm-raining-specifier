@@ -1,51 +1,21 @@
 import express, { Express, Request, Response } from "express";
 import dotenv from "dotenv";
-import mqtt, { MqttClient } from "mqtt";
-import { PrismaClient } from '@prisma/client';
-import insertMessage from "./src/queries/insertMessage";
-import getTodayStatus from "./src/queries/getTodayStatus";
+import brokerConnectivity from "./src/services/brokerConnectivity";
+import { QueryHandler } from "./src/services/QueryHandler";
+import bodyParser from "body-parser"
 
 dotenv.config();
 
-const broker: string = "ws://mqtt.my.id:8083/mqtt";
-const client: MqttClient | null = mqtt.connect(broker);
-const prisma = new PrismaClient();
-
-client.on("connect", () => {
-    console.log("Connected to the broker");
-    client.subscribe("test-polindra/json", (err) => {
-        if (!err) {
-            console.log(`Successfully subscribed`);
-        }
-    });
-});
-
-client.on("message", (topic: string, message: Buffer) => {
-    const data = JSON.parse(message.toString());
-    const date = new Date();
-    const timestamp: string = `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
-
-    insertMessage(data.cloud, data.thermostat, data.eye, data.pressure, data.wind, data.noise, data.temperature, timestamp)
-        .then(async () => {
-            const sensorLogs = await prisma.sensorLogs.findMany()
-            console.log(sensorLogs);
-
-            await prisma.$disconnect();
-        })
-        .catch(async (e) => {
-            console.error(e);
-            await prisma.$disconnect();
-            process.exit(1);
-        });
-});
-
-client.on("close", () => {
-    console.log("Connection closed.")
-});
+brokerConnectivity();
 
 async function main() {
     const app: Express = express();
     const port = process.env.PORT || 3000;
+    const queryHandler: QueryHandler = new QueryHandler();
+
+    app.use(express.json());
+
+    app.use(bodyParser.json())
 
     app.get('/', (req: Request, res: Response) => {
         res.send("Lorem ipsum");
@@ -56,8 +26,13 @@ async function main() {
 
         const today = date.toISOString().substring(0, 10);
 
-        const todayRain = await getTodayStatus(today);
-        res.send(todayRain)
+        const todayRain = await queryHandler.getTodayStatus(today);
+        res.send(todayRain);
+    });
+
+    app.post('/specified-time', async (req: Request, res: Response) => {
+        const date:any = req.body.date;
+        (!date) ? res.send("Please input some date") : res.send(req.body);
     });
 
     app.listen(port, () => {
@@ -65,7 +40,7 @@ async function main() {
     });
 }
 
-main()
+main();
 
 
 
