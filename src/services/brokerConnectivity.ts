@@ -23,7 +23,7 @@ export default function brokerConnectivity() {
         const date = new Date();
         const timestamp: string = `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
 
-        queryHandler.insertMessage(data.cloud, data.thermostat, data.eye, data.pressure, data.wind, data.noise, data.temperature, timestamp)
+        queryHandler.insertMessage(data.cloud, data.thermostat, data.eye, data.pressure, data.wind, data.noise, data.temperature, data.rain, timestamp)
             .then(async () => {
                 const sensorLogs = await prisma.sensorLogs.findMany()
                 console.log(sensorLogs);

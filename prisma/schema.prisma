@@ -24,6 +24,7 @@ model SensorLogs {
   wind        Float    @default(0)
   noise       Float    @default(0)
   temperature Float    @default(0)
+  rain        Float    @default(0)
   timestamp   String?
   createdAt   DateTime @default(now()) @db.Timestamp(6)
 }

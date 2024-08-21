@@ -3,9 +3,11 @@ import dotenv from "dotenv";
 import brokerConnectivity from "./src/services/brokerConnectivity";
 import { QueryHandler } from "./src/services/QueryHandler";
 import bodyParser from "body-parser"
+import getWeeklyStatus from "./src/queries/getWeeklyStatus";
 
 dotenv.config();
 
+// Maintain connection with the mqtt broker
 brokerConnectivity();
 
 async function main() {
@@ -33,6 +35,14 @@ async function main() {
     app.post('/specified-time', async (req: Request, res: Response) => {
         const date:any = req.body.date;
         (!date) ? res.send("Please input some date") : res.send(req.body);
+    });
+
+    app.post('/rain-history', async (req: Request, res: Response) => {
+        const date = new Date();
+        const day = req.body.day;
+        const history: any = await getWeeklyStatus(date, day);
+
+        res.send(history);
     });
 
     app.listen(port, () => {

@@ -7,6 +7,6 @@ export default async function getTodayStatus(date: any) {
     const query = await prisma.$queryRaw`
         SELECT * FROM "SensorLogs" WHERE "createdAt"::TEXT LIKE ${data}
     `;
-
+    
     return query;
 }

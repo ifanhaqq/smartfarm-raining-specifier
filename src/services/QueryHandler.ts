@@ -10,7 +10,7 @@ export class QueryHandler {
         return todayStatus;
     }
 
-    public async insertMessage(cloud: number, thermostat: number, eye: number, pressure: number, wind: number, noise: number, temperature: number, timestamp: string) {
-        insertMessage(cloud, thermostat, eye, pressure, wind, noise, temperature, timestamp);
+    public async insertMessage(cloud: number, thermostat: number, eye: number, pressure: number, wind: number, noise: number, temperature: number, rain: number, timestamp: string) {
+        insertMessage(cloud, thermostat, eye, pressure, wind, noise, temperature, rain, timestamp);
     }
 }
