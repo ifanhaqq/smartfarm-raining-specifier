@@ -28,3 +28,24 @@ model SensorLogs {
   timestamp   String?
   createdAt   DateTime @default(now()) @db.Timestamp(6)
 }
+
+model Sensors {
+  id          Int      @id @default(autoincrement())
+  w1_hum      Float    @default(0)
+  w1_temp     Float    @default(0)
+  w1_noise    Float    @default(0)
+  w1_pm25     Float    @default(0)
+  w1_pm10     Float    @default(0)
+  w1_press    Float    @default(0)
+  w1_luxh     Float    @default(0)
+  w1_luxl     Float    @default(0)
+  w2_wd       Float    @default(0)
+  w2_ws_avg   Float    @default(0)
+  w2_ws_max   Float    @default(0)
+  w2_rain_h   Float    @default(0)
+  w2_rain_d   Float    @default(0)
+  w2_temp     Float    @default(0)
+  w2_hum      Float    @default(0)
+  w2_press    Float    @default(0)
+  createdAt   DateTime @default(now()) @db.Timestamp(6)
+}
