@@ -2,8 +2,7 @@ import express, { Express, Request, Response } from "express";
 import dotenv from "dotenv";
 import brokerConnectivity from "./src/services/brokerConnectivity";
 import { QueryHandler } from "./src/services/QueryHandler";
-import bodyParser from "body-parser"
-import getWeeklyStatus from "./src/queries/getWeeklyStatus";
+import bodyParser from "body-parser";
 
 dotenv.config();
 
@@ -40,7 +39,7 @@ async function main() {
     app.post('/rain-history', async (req: Request, res: Response) => {
         const date = new Date();
         const day = req.body.day;
-        const history: any = await getWeeklyStatus(date, day);
+        const history: any = await queryHandler.rainHistory(date, day);
 
         res.send(history);
     });
