@@ -23,21 +23,22 @@ export default async function getWeeklyStatus(date: any, day: number) {
         let isRaining: number = 0;
 
         if (dailyStatus.length > 0) {
-            dailyStatus.forEach((rainStatus: { rain: any; }) => {
+            dailyStatus.forEach((rainStatus: { w2_rain_h: any; w2_rain_d: any }) => {
 
-                if (rainStatus.rain > 0) {
+                if (rainStatus.w2_rain_h > 0 || rainStatus.w2_rain_d > 0) {
                     isRaining = isRaining + 1;
                 }
             });
 
-            (isRaining > 0) ? rainReport.push(1) : rainReport.push(0);
+            (isRaining > 0) ? rainReport.push(1) : rainReport.push(-1);
         } else {
-            rainReport.push(0);
+            rainReport.push(-1);
         }
+
     }
 
     const reportJson = JSON.stringify(rainReport)
-    console.log(reportJson);
+
     return JSON.stringify(reportJson);
 
 
