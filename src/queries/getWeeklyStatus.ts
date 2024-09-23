@@ -39,7 +39,7 @@ export default async function getWeeklyStatus(date: any, day: number) {
 
     const reportJson = JSON.stringify(rainReport)
 
-    return JSON.stringify(reportJson);
+    return reportJson;
 
 
 }
