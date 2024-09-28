@@ -6,8 +6,10 @@ import bodyParser from "body-parser";
 
 dotenv.config();
 
+const publishing: boolean = true;
+
 // Maintain connection with the mqtt broker
-brokerConnectivity();
+brokerConnectivity(publishing);
 
 async function main() {
     const app: Express = express();
