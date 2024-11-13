@@ -1,0 +1,17 @@
+-- CreateTable
+CREATE TABLE "TabelCuaca2023" (
+    "id" SERIAL NOT NULL,
+    "Tanggal" TIMESTAMP(3) NOT NULL,
+    "tn" DOUBLE PRECISION NOT NULL,
+    "tx" DOUBLE PRECISION NOT NULL,
+    "t_avg" DOUBLE PRECISION NOT NULL,
+    "rh_avg" DOUBLE PRECISION NOT NULL,
+    "rr" DOUBLE PRECISION NOT NULL,
+    "ff_x" DOUBLE PRECISION NOT NULL,
+    "ddd_x" DOUBLE PRECISION NOT NULL,
+    "ff_avg" DOUBLE PRECISION NOT NULL,
+    "ddd_car" TEXT NOT NULL,
+    "bulan" TEXT NOT NULL DEFAULT 'Januari',
+
+    CONSTRAINT "TabelCuaca2023_pkey" PRIMARY KEY ("id")
+);

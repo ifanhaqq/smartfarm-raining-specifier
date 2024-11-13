@@ -1,6 +1,9 @@
 {
   "name": "smartfarm-raining-specifier",
   "version": "1.0.0",
+  "prisma": {
+    "seed": "ts-node prisma/seed.ts"
+  },
   "description": "",
   "main": "index.ts",
   "scripts": {
@@ -13,6 +16,8 @@
   "license": "ISC",
   "dependencies": {
     "@prisma/client": "^5.18.0",
+    "@tensorflow/tfjs": "^4.22.0",
+    "axios": "^1.7.7",
     "body-parser": "^1.20.2",
     "dotenv": "^16.4.5",
     "express": "^4.19.2",

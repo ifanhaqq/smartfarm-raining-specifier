@@ -49,3 +49,73 @@ model Sensors {
   w2_press    Float    @default(0)
   createdAt   DateTime @default(now()) @db.Timestamp(6)
 }
+
+model TabelNeracaAir {
+  id             Int    @id @default(autoincrement())
+  bulan          String @default("Januari")
+  CH             Float  @default(0)
+  t_avg          Float  @default(0)
+  etp            Float  @default(0)
+  ch_etp         Float  @default(0)
+  apwl           Float  @default(0)
+  kat            Float  @default(0)
+  ats_percentage Float  @default(0)
+}
+
+model TabelCuaca2023 {
+  id      Int @id @default(autoincrement())
+  Tanggal DateTime
+  tn      Float
+  tx      Float
+  t_avg   Float
+  rh_avg  Float
+  rr      Float
+  ff_x    Float
+  ddd_x   Float
+  ff_avg  Float
+  ddd_car String
+  bulan   String @default("Januari")
+}
+
+model MonthlyStats {
+  id                    BigInt @id @default(autoincrement())
+  month                 String
+  t_avg                 Float
+  rr                    Float
+  heat_index            Float
+  etp                   Float
+  apwl                  Float
+  groundwater_level     Float
+  groundwater_available Float
+  day_amount            Int
+}
+
+model PredictionsHistory {
+  id                    BigInt @id @default(autoincrement())
+  groundwater_level     Float
+  groundwater_available Float
+  user_id               BigInt
+  field_id              BigInt
+  created_at            DateTime @default(now()) @db.Timestamp(6)
+}
+
+model DailySensorsAverage {
+  id          BigInt   @id @default(autoincrement())
+  w1_hum      Float    @default(0)
+  w1_temp     Float    @default(0)
+  w1_noise    Float    @default(0)
+  w1_pm25     Float    @default(0)
+  w1_pm10     Float    @default(0)
+  w1_press    Float    @default(0)
+  w1_luxh     Float    @default(0)
+  w1_luxl     Float    @default(0)
+  w2_wd       Float    @default(0)
+  w2_ws_avg   Float    @default(0)
+  w2_ws_max   Float    @default(0)
+  w2_rain_h   Float    @default(0)
+  w2_rain_d   Float    @default(0)
+  w2_temp     Float    @default(0)
+  w2_hum      Float    @default(0)
+  w2_press    Float    @default(0)
+  createdAt   DateTime @default(now()) @db.Timestamp(6)
+}

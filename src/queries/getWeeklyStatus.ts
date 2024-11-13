@@ -7,6 +7,8 @@ export default async function getWeeklyStatus(date: any, day: number) {
     const todayWithoutDate = today.substring(0, 8);
     const queryHandler: QueryHandler = new QueryHandler();
 
+    if (day > 30) day = 30; 
+
     const aWeek: string[] = [];
 
     for (let index = todayDate; index > todayDate - day; index--) {
