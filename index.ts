@@ -9,6 +9,7 @@ import predictionService from "./src/services/predictionService";
 import getTodayStatus from "./src/queries/getTodayStatus";
 import { Prisma, PrismaClient } from "@prisma/client";
 import getMonthlyStats from "./src/queries/getMonthlyStats";
+import getDailyRainingStatus from "./src/services/getDailyRainingStatus";
 
 const path = require("path");
 
@@ -77,40 +78,6 @@ async function main() {
   });
 
   app.post("/predict", async (req: Request, res: Response) => {
-    let prediction: { tAvg: number; rr: number }[] = [];
-
-    const data = [
-      [29.7, 0],
-      [31.3, 0],
-      [29.8, 0],
-      [28.5, 20.5],
-      [29.3, 0],
-      [28.4, 0],
-      [28.2, 0],
-      [28.5, 1.2],
-      [29.6, 8.3],
-      [29.7, 0],
-      [27.9, 2.1],
-      [25.7, 0],
-      [27.4, 4.5],
-      [27.5, 3.5],
-      [29.4, 0],
-      [28.1, 0],
-      [28.5, 0],
-      [28.7, 0],
-      [27.5, 8.1],
-      [28.7, 5.5],
-      [28.2, 9.7],
-      [29.3, 0],
-      [28.7, 0],
-      [27.4, 13],
-      [28, 0],
-      [28.5, 0],
-      [28.4, 0],
-      [27.6, 1.8],
-      [28.5, 61],
-      [26.4, 6],
-    ];
 
     const result = await predictionService(new Date());
 
@@ -126,6 +93,14 @@ async function main() {
 
     return res.json(result);
   });
+
+  app.get("/get-daily-status", async (req: Request, res: Response) => {
+    const response = await getDailyRainingStatus();
+
+    console.log(response);
+
+    res.json(response);
+  })
 
   app.get("/dummy", async (req: Request, res: Response) => {
     const prisma = new PrismaClient();
